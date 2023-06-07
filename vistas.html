@@ -2,21 +2,29 @@
 <html>
 <head>
   <title>Aplicación del Clima</title>
-  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>Aplicación del Clima</h1>
-    <div class="weather-card">
-      <h2>Ciudad</h2>
+    <form id="weather-form">
+        <select id="country-select" placeholder="Seleccione el país">
+            <option value="-"></option>
+        </select>
+        <select id="city-select" placeholder="Seleccione la ciudad"></select>
+      <button type="submit">Obtener Clima</button>
+    </form>
+    <div id="weather-card" class="hidden">
+      <h2 id="location-name"></h2>
       <div class="weather-info">
         <div class="weather-icon">
-          <img src="sunny.png" alt="Sunny">
+          <img id="weather-icon" src="" alt="">
         </div>
-        <div class="temperature">25°C</div>
-        <div class="description">Cielo Despejado</div>
+        <div id="temperature" class="temperature"></div>
+        <div id="description" class="description"></div>
       </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
