@@ -36,7 +36,16 @@ aquí tienes los pasos generales que debes seguir:
 const paisesSelect = document.getElementById('country-select');
 const citySelect = document.getElementById('city-select');
 const advice = document.getElementById("advice")    
-const form = document.getElementById("form")    
+const form = document.getElementById("form")
+   
+const temperatura = document.getElementById("temperatura")
+const humedad = document.getElementById("humedad")
+const lluvia = document.getElementById("probabilidad-lluvia")
+const vientoDireccion = document.getElementById("direccion-viento")
+const cieloCubierto = document.getElementById("coberturadelCielo")
+const vientoVelocidad = document.getElementById("velocidadViento")
+const presionAtmosferica =   document.getElementById("presion")
+
 
  window.onload = async function () {
     
