@@ -11,7 +11,8 @@
         <select id="country-select" placeholder="Seleccione el país">
             <option value="-"></option>
         </select>
-        <select id="city-select" placeholder="Seleccione la ciudad"></select>
+        <input id="city-select" placeholder="Capital del pais seleccionado" type="text" readonly>
+        <p class="hidden" id="advice">El pais seleccionado no posee capital</p>
       <button type="submit">Obtener Clima</button>
     </form>
     <div id="weather-card" class="hidden">

@@ -30,21 +30,43 @@ aquí tienes los pasos generales que debes seguir:
     querySelector() y getElementById(), y luego modificar su contenido 
     o atributos para reflejar los datos del clima.
 
-Recuerda que cada paso implica el uso de APIs externas y puede requerir la generación de claves de API y el manejo adecuado de las solicitudes y respuestas. Asegúrate de leer y comprender la documentación de las API
- que planeas utilizar y seguir las mejores prácticas de seguridad y manejo de errores. */
+    Recuerda que cada paso implica el uso de APIs externas y puede requerir la generación de claves de API y el manejo adecuado de las solicitudes y respuestas. Asegúrate de leer y comprender la documentación de las API
+    que planeas utilizar y seguir las mejores prácticas de seguridad y manejo de errores. */
+    
+const paisesSelect = document.getElementById('country-select');
+const citySelect = document.getElementById('city-select');
+const advice = document.getElementById("advice")    
 
- const paisesSelect = document.getElementById('country-select');
- 
+
  window.onload = async function () {
     
      await fetch("https://restcountries.com/v3.1/all")
      .then(response => response.json())
      .then(paises => {
         paises.forEach(pais => {
+        
           const option = document.createElement('option');
           option.value = pais.name.common;
           option.text = pais.name.common;
           paisesSelect.appendChild(option);
         })
         })
+
+        citySelect.value = ""; 
 }
+
+
+
+paisesSelect.addEventListener("change" , async function (event) {
+    let paisSeleccionado = paisesSelect.value;
+    console.log();
+    await fetch(`https://restcountries.com/v3.1/name/${paisSeleccionado}?fullText=true`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+      if (data[0].capital[0] === undefined ) {
+        advice.classList.remove("hidden")
+        return
+      }else citySelect.value = data[0].capital[0]; 
+})
+})
