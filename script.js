@@ -36,7 +36,7 @@ aquí tienes los pasos generales que debes seguir:
 const paisesSelect = document.getElementById('country-select');
 const citySelect = document.getElementById('city-select');
 const advice = document.getElementById("advice")    
-
+const form = document.getElementById("form")    
 
  window.onload = async function () {
     
@@ -70,3 +70,27 @@ paisesSelect.addEventListener("change" , async function (event) {
       }else citySelect.value = data[0].capital[0]; 
 })
 })
+/*
+curl --request GET \
+     --url 'https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW' \
+     --header 'accept: application/json'
+*/
+     form.addEventListener("submit" , async function (e) {
+      e.preventDefault()
+        const city = citySelect.value
+        const options = {method: 'GET', headers: {accept: 'application/json'}};
+        await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${city}&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW`, options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+    })
+     })
+
+
+
+/*
+fetch('https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+  */
