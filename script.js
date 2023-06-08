@@ -92,7 +92,17 @@ curl --request GET \
         .then(response => response.json())
         .then(data => {
             console.log(data);
-    })
+
+            temperatura.textContent = data.data.values.temperature
+            humedad.textContent = data.data.values.humidity
+            vientoDireccion.textContent = data.data.values.windDirection
+            vientoVelocidad.textContent = data.data.values.windSpeed
+            lluvia.textContent = data.data.values.precipitationProbability
+            presionAtmosferica.textContent = data.data.values.temperature
+            cieloCubierto.textContent = data.data.values.cloudCover
+          
+
+          })
      })
 
 
