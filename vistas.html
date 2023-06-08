@@ -12,11 +12,15 @@
             <option value="-"></option>
         </select>
         <input id="city-select" placeholder="Capital del pais seleccionado" type="text" readonly>
-        <p class="hidden" id="advice">El pais seleccionado no posee capital</p>
+        <p class="hidden" id="advice">Ninguna capital ha sido seleccionada.</p>
       <button type="submit">Obtener Clima</button>
+      <button id="mi-ciudad"  type="button" >Obtener el clima de mi ciudad</button>
     </form>
     <div id="weather-cards" class="big-card">
-      
+      <div>
+        <h3>Ciudad:</h3>
+        <h4 id="ciudad">-</h4>
+      </div>
        
         <div>
           <h3>Temperatura:</h3>

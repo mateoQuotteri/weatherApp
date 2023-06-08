@@ -45,7 +45,8 @@ const vientoDireccion = document.getElementById("direccion-viento")
 const cieloCubierto = document.getElementById("coberturadelCielo")
 const vientoVelocidad = document.getElementById("velocidadViento")
 const presionAtmosferica =   document.getElementById("presion")
-
+const ciudad = document.getElementById("ciudad");
+const miCiudadBtn = document.getElementById("mi-ciudad")
 
  window.onload = async function () {
     
@@ -72,7 +73,6 @@ paisesSelect.addEventListener("change" , async function (event) {
     await fetch(`https://restcountries.com/v3.1/name/${paisSeleccionado}?fullText=true`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
       if (data[0].capital[0] === undefined ) {
         advice.classList.remove("hidden")
         return
@@ -85,14 +85,18 @@ curl --request GET \
      --header 'accept: application/json'
 */
      form.addEventListener("submit" , async function (e) {
-      e.preventDefault()
-        const city = citySelect.value
+       e.preventDefault()
+       const city = citySelect.value
+      if (city === "") {
+        advice.classList.remove("hidden")
+        return
+      }
         const options = {method: 'GET', headers: {accept: 'application/json'}};
         await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${city}&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW`, options)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-
+    
+            ciudad.textContent = citySelect.value
             temperatura.textContent = data.data.values.temperature
             humedad.textContent = data.data.values.humidity
             vientoDireccion.textContent = data.data.values.windDirection
@@ -105,11 +109,13 @@ curl --request GET \
           })
      })
 
+     miCiudadBtn.addEventListener("click", function (e) {
+      console.log(navigator.geolocation.getCurrentPosition(function(position) {
+       console.log(position);
+        
+       
+      }) 
+    );
+    })
 
 
-/*
-fetch('https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW', options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
-  */
