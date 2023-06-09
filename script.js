@@ -47,6 +47,7 @@ const vientoVelocidad = document.getElementById("velocidadViento")
 const presionAtmosferica =   document.getElementById("presion")
 const ciudad = document.getElementById("ciudad");
 const miCiudadBtn = document.getElementById("mi-ciudad")
+const options = {method: 'GET', headers: {accept: 'application/json'}};
 
  window.onload = async function () {
     
@@ -91,7 +92,6 @@ curl --request GET \
         advice.classList.remove("hidden")
         return
       }
-        const options = {method: 'GET', headers: {accept: 'application/json'}};
         await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${city}&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW`, options)
         .then(response => response.json())
         .then(data => {
@@ -110,12 +110,34 @@ curl --request GET \
      })
 
      miCiudadBtn.addEventListener("click", function (e) {
-      console.log(navigator.geolocation.getCurrentPosition(function(position) {
-       console.log(position);
-        
+      navigator.geolocation.getCurrentPosition(async function(position) {
+       let lat = position.coords.latitude;
+       let lng = position.coords.longitude;
        
+       
+       await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+       .then(response => response.json())
+       .then(async data => {
+        console.log(data);
+
+        let ciudadBuscada = data.address.city;
+        console.log(ciudadBuscada);
+
+        await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=${ciudadBuscada}&apikey=7tvEvoUX2LHij7UECpL1OYuqwj5oVmgW`, options)
+        .then(response => response.json())
+        .then(async data => {
+          ciudad.textContent = ciudadBuscada
+          temperatura.textContent = data.data.values.temperature
+          humedad.textContent = data.data.values.humidity
+          vientoDireccion.textContent = data.data.values.windDirection
+          vientoVelocidad.textContent = data.data.values.windSpeed
+          lluvia.textContent = data.data.values.precipitationProbability
+          presionAtmosferica.textContent = data.data.values.temperature
+          cieloCubierto.textContent = data.data.values.cloudCover
+        })
+         })
       }) 
-    );
+    ;
     })
 
 
